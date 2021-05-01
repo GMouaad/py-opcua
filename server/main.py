@@ -87,7 +87,7 @@ def start():
     sleep_period = 0.5
     # Start the server
     mServer.start()
-    print(f"Server started at {URL}")
+    print("Server started at {}".format(URL))
 
     # enable following if you want to subscribe to nodes on server side
     handler = SubHandler()
