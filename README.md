@@ -6,4 +6,4 @@ This repository is a python OPC UA implementation using the 'opcua' python packa
  - git clone https://github.com/GMouaad/py-opcua.git
  - cd py-opcua
  - pip3 install -r requirements.txt
- - python3 server/main.py
+ - python3 server/main.py 
