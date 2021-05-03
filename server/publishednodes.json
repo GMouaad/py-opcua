@@ -1,0 +1,26 @@
+[
+    {
+        "EndpointUrl": "opc.tcp://127.0.0.1:4840/mp_opua_test/",
+        "UseSecurity": false,
+        "OpcNodes": [
+            {
+                "Id": "ns=2;s=Parameters"
+            },
+            {
+                "Id": "ns=2;s=temperature"
+            },
+            {
+                "Id": "ns=2;s=unit"
+            },
+            {
+                "Id": "ns=2;s=status",
+                "OpcSamplingInterval": 1000,
+                "OpcPublishingInterval": 2000,
+                "DisplayName": "Current status"
+            },
+            {
+                "Id": "ns=2;s=level"
+            }
+        ]
+    }
+]

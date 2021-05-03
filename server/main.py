@@ -1,4 +1,5 @@
 import datetime
+import json
 import random
 import time
 from math import sin
@@ -10,6 +11,50 @@ URL = "opc.tcp://127.0.0.1:4840/mp_opua_test/"
 SERVER_NAME = "OPC UA Test Server"
 NAMESPACE_NAME = "OPC UA Test Server"
 start_timestamp = time.time()
+JSON_FILENAME = 'publishednodes.json'
+
+"""
+Parameters  ns = 2;i = 1    2: Parameters
+    start_time  ns = 2;i = 2    2: start_time, 1619971590.4114974
+data        ns = 2;i = 3        2: data
+    Pump    ns = 2;i = 4    2: Pump
+        temperature ns = 2;i = 5        2: temperature, 24
+        unit        ns = 2;i = 6        2: unit, °C
+        status      ns = 2;i = 7        2: status, False
+        level       ns = 2;i = 8        2: level, 12
+"""
+
+
+def generate_published_nodes_json():
+    pn = [
+        {
+            "EndpointUrl": URL,
+            "UseSecurity": False,
+            "OpcNodes": [
+                {
+                    "Id": "ns=2;s=Parameters"
+                },
+                {
+                    "Id": "ns=2;s=temperature"
+                },
+                {
+                    "Id": "ns=2;s=unit"
+                },
+                {
+                    "Id": "ns=2;s=status",
+                    "OpcSamplingInterval": 1000,
+                    "OpcPublishingInterval": 2000,
+                    "DisplayName": "Current status"
+                },
+                {
+                    "Id": "ns=2;s=level"
+                }
+            ]
+        }
+    ]
+    pn_json = json.dumps(pn, indent=4)
+    with open(JSON_FILENAME, "w") as json_file:
+        json_file.write(pn_json)
 
 
 class SubHandler(object):
@@ -89,6 +134,11 @@ def start():
     mServer.start()
     print("Server started at {}".format(URL))
 
+    print("root_node: "+root_node.__str__())
+    print("params: "+params.__str__())
+    print("pump: "+pump.__str__())
+    # print(""+pump)
+
     # enable following if you want to subscribe to nodes on server side
     handler = SubHandler()
     sub = mServer.create_subscription(500, handler)
@@ -101,10 +151,10 @@ def start():
             time.sleep(sleep_period)
     finally:
         # close connection, remove subscriptions, etc
-        pump_temp_vup.stop()    # should be stopped
+        pump_temp_vup.stop()  # should be stopped
         mServer.stop()
 
 
 if __name__ == '__main__':
+    generate_published_nodes_json()
     start()
-
