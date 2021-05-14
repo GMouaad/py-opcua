@@ -7,7 +7,8 @@ from threading import Thread
 
 from opcua import ua, uamethod, Server
 
-URL = "opc.tcp://127.0.0.1:4840/mp_opua_test/"
+# URL = "opc.tcp://127.0.0.1:4840/mp_opua_test/"
+URL = "opc.tcp://localhost:4840/mp_opua_test/"
 SERVER_NAME = "OPC UA Test Server"
 NAMESPACE_NAME = "OPC UA Test Server"
 start_timestamp = time.time()

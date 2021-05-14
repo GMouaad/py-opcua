@@ -1,6 +1,6 @@
 [
     {
-        "EndpointUrl": "opc.tcp://127.0.0.1:4840/mp_opua_test/",
+        "EndpointUrl": "opc.tcp://localhost:4840/mp_opua_test/",
         "UseSecurity": false,
         "OpcNodes": [
             {
